@@ -5,16 +5,12 @@ function PersonGrad({ className }) {
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 184.153 184.152"
-      xml:space="preserve"
       className={className}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="2"></g>
+      <g id="SVGRepo_bgCarrier"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}

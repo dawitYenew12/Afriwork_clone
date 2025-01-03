@@ -1,8 +1,12 @@
 .underline-custom::after {
-    content: "";
-    height: 1px;
-    background-color: black;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  content: "";
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
+
+.custom-shadow {
+    box-shadow: 2px 2px 5px 5px rgba(0.1, 0.1, 0.1, 0.1); /* Applies shadow in all directions */
+  }

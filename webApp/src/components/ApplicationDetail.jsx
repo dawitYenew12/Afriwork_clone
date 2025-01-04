@@ -22,7 +22,7 @@ function ApplicationDetail() {
         </div>
         <div className="mt-4 flex flex-col space-y-1">
           <textarea
-            className="w-full h-56 border border-gray-400 rounded-3xl p-4 placeholder:text-lg"
+            className="w-full h-56 border border-gray-400 rounded-3xl p-4 placeholder:text-lg resize-none"
             placeholder="Cover letter"
           ></textarea>
           <p className="text-gray-500 text-sm text-right">
@@ -53,7 +53,7 @@ function ApplicationDetail() {
           />
         </div>
         <hr className="mt-6 border border-gray-200" />
-        <div className="mt-6 flex flex-row spce-x-8 px-4 py-2 rounded-lg custom-shadow">
+        <div className="mt-6 flex flex-row spce-x-8 px-4 py-2 rounded-xl custom-shadow">
           <div className="flex items-center justify-center">
             <DescriptionIcon
               className="text-gray-400"
@@ -73,19 +73,19 @@ function ApplicationDetail() {
             </div>
           </div>
         </div>
-        <div className="mt-6 flex flex-row justify-between mb-32">
-          <div className="w-1/2 p-2 border bg-[#3f3f46] text-white relative rounded-l-full">
-            <button className="w-full text-center">Update CV</button>
+        <div className="mt-6 flex flex-row justify-between mb-48">
+          <div className="w-1/2 px-2 py-[6px]  border bg-[#3f3f46] text-white relative rounded-l-full">
+            <button className="w-full text-center pl-8 text-xl">Update CV</button>
             <SyncOutlinedIcon
-              className="text-white absolute top-1/2 left-4 transform -translate-y-1/2"
-              style={{ fontSize: 20 }}
+              className="text-white absolute top-1/2 left-5 transform -translate-y-1/2"
+              style={{ fontSize: 26 }}
             />
           </div>
-          <div className="w-1/2 p-2 border bg-[#3f3f46] text-white relative rounded-r-full">
-            <button className="w-full text-center">Delete CV</button>
+          <div className="w-1/2 px-2 py-[6px] border bg-[#3f3f46] text-white relative rounded-r-full">
+            <button className="w-full text-center pl-8 text-xl">Delete CV</button>
             <DeleteIcon
-              className="text-white absolute top-1/2 left-4 transform -translate-y-1/2"
-              style={{ fontSize: 20 }}
+              className="text-white absolute top-1/2 left-6 transform -translate-y-1/2"
+              style={{ fontSize: 26 }}
             />
           </div>
         </div>

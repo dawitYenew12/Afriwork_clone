@@ -8,5 +8,9 @@
 }
 
 .custom-shadow {
-    box-shadow: 2px 2px 5px 5px rgba(0.1, 0.1, 0.1, 0.1); /* Applies shadow in all directions */
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3); /* Applies shadow in all directions */
+  }
+
+.job-card {
+    box-shadow: 0px 0px 18px 4px rgba(0, 0, 0, 0.1); /* Applies shadow in all directions */
   }

@@ -17,7 +17,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import MapIcon from "@mui/icons-material/Map";
 import HandCoin from "../assets/Icons/HandCoin";
-import PaymentsIcon from '@mui/icons-material/Payments';
+import PaymentsIcon from "@mui/icons-material/Payments";
 
 import "../styles/jobStyle.css";
 
@@ -297,7 +297,7 @@ function PostJobForm() {
       </div>
       <div className="flex flex-col mt-20 relative">
         <div className="w-full border-[1px] border-b border-gray-300 mb-6"></div>
-        <div className="text-red-500 absolute bottom-[17px] left-1/2 transform -translate-x-1/2 px-2 z-10 bg-white">
+        <div className="text-red-500 text-sm absolute bottom-[17px] left-1/2 transform -translate-x-1/2 px-2 z-10 bg-white">
           Additional Information
         </div>
       </div>
@@ -369,7 +369,10 @@ function PostJobForm() {
         </div>
       </div>
       <div className="flex flex-col mt-2 relative">
-        <label htmlFor="componsationCurrency" className="font-semibold opacity-90">
+        <label
+          htmlFor="componsationCurrency"
+          className="font-semibold opacity-90"
+        >
           Salary/Componsation Currency
         </label>
         <input
@@ -406,7 +409,7 @@ function PostJobForm() {
         </div>
       </div>
       <div className="flex flex-col mt-10 justify-center items-center space-y-4 mb-12">
-        <button className="w-[fit-content] px-10 py-[6px] bg-red-600 text-white mt-8 rounded-full">
+        <button className="w-[fit-content] px-10 py-[6px] bg-red-600 text-white mt-8 rounded-full relative custom-lines mb-4">
           Continue
         </button>
         <p className="text-red-600">Save as Draft</p>

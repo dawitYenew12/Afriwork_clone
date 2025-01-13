@@ -18,21 +18,22 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import MapIcon from "@mui/icons-material/Map";
 import HandCoin from "../assets/Icons/HandCoin";
 import PaymentsIcon from "@mui/icons-material/Payments";
-
+import CustomSelect from "../components/Custom_select";
 import "../styles/jobStyle.css";
+import { SelectionOptions } from "../assets/options/SelectionOptions";
 
 function PostJobForm() {
   const [styleState, setStyleState] = useState(Array(5).fill(false));
+  const [jobSites, setJobSites] = useState(SelectionOptions.jobSites);
+
+  const handleChangeSelect = (e) => {
+    console.log(e);
+  };
 
   const handleStyleState = (index) => {
     const newStyleState = [...styleState];
     newStyleState[index] = !newStyleState[index];
     setStyleState(newStyleState);
-  };
-
-  const handleSelection = () => {
-    const newSelection = document.getSelection();
-    setSelection(newSelection);
   };
 
   return (
@@ -63,6 +64,7 @@ function PostJobForm() {
           />
         </div>
       </div>
+
       {/*Job site*/}
       <div className="flex flex-col mt-2 relative">
         <label htmlFor="jobSite" className="font-semibold opacity-90">
@@ -116,6 +118,20 @@ function PostJobForm() {
         </div>
         <div className="absolute top-11 right-3">
           <KeyboardArrowDownIcon className="text-gray-800" />
+        </div>
+      </div>
+      <div className="flex flex-col mt-2 relative">
+        <label htmlFor="jobSite" className="font-semibold opacity-90">
+          Job Site <span className="text-red-500">*</span>
+        </label>
+        <div className="mt-2">
+          <CustomSelect
+            options={jobSites}
+            placeholder="Enter Job Site"
+            onChange={(e) => handleChangeSelect(e)}
+            isSearchable={false}
+            Icon={MapSite}
+          />
         </div>
       </div>
       {/* Job type */}

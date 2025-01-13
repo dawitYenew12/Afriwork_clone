@@ -6,6 +6,7 @@ import ExploreMorejobs from "./pages/ExploreMorejobs";
 import DraftsList from "./pages/DraftsList";
 import ChooseYourProfile from "./pages/ChooseYourProfile";
 import YourJobPosts from "./pages/YourJobPosts";
+import Selection from "./pages/Selection";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/drafts" element={<DraftsList/>}/>
         <Route path="/choose" element={<ChooseYourProfile/>}/>
         <Route path="/posts" element={<YourJobPosts/>}/>
+        <Route path="/slection" element={<Selection />} />
       </Routes>
     </Router>
   );

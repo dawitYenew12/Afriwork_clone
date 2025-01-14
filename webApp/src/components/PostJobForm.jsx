@@ -22,6 +22,7 @@ import CustomSelect from "./CustomSelect";
 import "../styles/jobStyle.css";
 import { SelectionOptions } from "../assets/options/SelectionOptions";
 import FormField from "./FormField";
+import { DatePickerInput } from "carbon-components-react";
 
 function PostJobForm() {
   const [styleState, setStyleState] = useState(Array(5).fill(false));
@@ -29,8 +30,12 @@ function PostJobForm() {
   const [jobTypes, setJobTypes] = useState(SelectionOptions.jobTypes);
   const [jobSectors, setJobSectors] = useState(SelectionOptions.jobSectors);
   const [gender, setGender] = useState(Selection.Gender);
-  const [experienceLevel, setExperienceLevel] = useState(SelectionOptions.ExperienceLevel);
-  const [educationAndQual, setEducationAndQual] = useState(SelectionOptions.EducationAndQual);
+  const [experienceLevel, setExperienceLevel] = useState(
+    SelectionOptions.ExperienceLevel
+  );
+  const [educationAndQual, setEducationAndQual] = useState(
+    SelectionOptions.EducationAndQual
+  );
 
   const handleChangeSelect = (e) => {
     console.log(e);
@@ -107,12 +112,11 @@ function PostJobForm() {
         />
       </FormField>
 
-    
       {/* Job sector */}
       <FormField
         label={
           <>
-             Job Sector <span className="text-red-500">*</span>
+            Job Sector <span className="text-red-500">*</span>
           </>
         }
       >
@@ -125,13 +129,12 @@ function PostJobForm() {
           Icon={DomainAddIcon}
         />
       </FormField>
-     
 
       {/* Education Qualification */}
       <FormField
         label={
           <>
-             Education Qualification <span className="text-red-500">*</span>
+            Education Qualification <span className="text-red-500">*</span>
           </>
         }
       >
@@ -144,8 +147,7 @@ function PostJobForm() {
           Icon={PersonGrad}
         />
       </FormField>
-      
-      
+
       {/* Experiance Level */}
       <FormField
         label={
@@ -164,8 +166,6 @@ function PostJobForm() {
         />
       </FormField>
 
-      
- 
       {/* Gender */}
       <FormField
         label={
@@ -183,7 +183,9 @@ function PostJobForm() {
           Icon={WcIcon}
         />
       </FormField>
-    
+
+
+
       {/* Job Deadline */}
       <div className="flex flex-col mt-2 relative">
         <div className="flex flex-row justify-between items-center">

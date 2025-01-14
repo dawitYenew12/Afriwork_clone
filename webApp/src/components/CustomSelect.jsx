@@ -41,6 +41,7 @@ function CustomSelect({
   options,
   isMulti,
   isSearchable,
+  id,
   placeholder,
   onChange,
   align,
@@ -50,7 +51,8 @@ function CustomSelect({
   const [selectedOption, setSelectedOption] = useState(isMulti ? [] : null);
   const [searchValue, setSearchValue] = useState(isSearchable ? "" : "");
   const [focused, setFocused] = useState(false);
-  const [menuStyle, setMenuStyle] = useState({});  
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [menuStyle, setMenuStyle] = useState({});
   const searchRef = useRef();
   const inputRef = useRef();
   const menuRef = useRef();
@@ -59,13 +61,17 @@ function CustomSelect({
     if (!inputRef.current || !menuRef.current) return;
 
     const inputRect = inputRef.current.getBoundingClientRect();
+    const menuRect = menuRef.current.getBoundingClientRect();
     const distanceFromTop = inputRect.top;
     const bottom = inputRect.bottom;
-    const distanceFromBottom = window.innerHeight - bottom;
+    const distanceFromBottom = windowHeight - bottom;
 
     if (distanceFromBottom >= distanceFromTop) {
       console.log("toBottom: ", inputRect);
       console.log(bottom - distanceFromTop);
+      return { top: bottom - distanceFromTop };
+    } else if (distanceFromBottom - menuRect.height >= menuRect.height) {
+      console.log("toTop middle: ", menuRect);
       return { top: bottom - distanceFromTop };
     } else {
       console.log("toTop: ", inputRect);
@@ -95,12 +101,12 @@ function CustomSelect({
         setShowMenu(false);
       }
     };
-
+    setWindowHeight(windowHeight);
     window.addEventListener("click", handler);
     return () => {
       window.removeEventListener("click", handler);
     };
-  }, []);
+  }, [windowHeight]);
 
   const handleInputClick = () => {
     setFocused(false);
@@ -200,6 +206,7 @@ function CustomSelect({
   return (
     <div className="relative">
       <div
+        id={id}
         tabIndex="0"
         ref={inputRef}
         onClick={handleInputClick}
@@ -224,13 +231,12 @@ function CustomSelect({
 
       {showMenu && (
         <div
-        ref={menuRef}
+          ref={menuRef}
           className={`absolute z-50 left-4 mt-1 w-[110px] border border-black bg-white shadow-lg rounded-md ${
             align === "auto" ? "" : `text-${align}`
           }`}
           onClick={handleClick}
           style={menuStyle}
-
         >
           {isSearchable && (
             <div className="px-2 py-1">
@@ -243,9 +249,7 @@ function CustomSelect({
               />
             </div>
           )}
-          <div
-            className="max-h-80 overflow-y-auto p-1 rounded-md"
-          >
+          <div className="max-h-80 overflow-y-auto p-1 rounded-md">
             {getOptions().map((option) => (
               <div
                 onClick={(e) => onItemClick(e, option)}

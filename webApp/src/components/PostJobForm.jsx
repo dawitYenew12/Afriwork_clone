@@ -18,13 +18,19 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import MapIcon from "@mui/icons-material/Map";
 import HandCoin from "../assets/Icons/HandCoin";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import CustomSelect from "../components/Custom_select";
+import CustomSelect from "./CustomSelect";
 import "../styles/jobStyle.css";
 import { SelectionOptions } from "../assets/options/SelectionOptions";
+import FormField from "./FormField";
 
 function PostJobForm() {
   const [styleState, setStyleState] = useState(Array(5).fill(false));
   const [jobSites, setJobSites] = useState(SelectionOptions.jobSites);
+  const [jobTypes, setJobTypes] = useState(SelectionOptions.jobTypes);
+  const [jobSectors, setJobSectors] = useState(SelectionOptions.jobSectors);
+  const [gender, setGender] = useState(Selection.Gender);
+  const [experienceLevel, setExperienceLevel] = useState(SelectionOptions.ExperienceLevel);
+  const [educationAndQual, setEducationAndQual] = useState(SelectionOptions.EducationAndQual);
 
   const handleChangeSelect = (e) => {
     console.log(e);
@@ -66,131 +72,118 @@ function PostJobForm() {
       </div>
 
       {/*Job site*/}
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="jobSite" className="font-semibold opacity-90">
-          Job Site <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="jobSite"
+      <FormField
+        label={
+          <>
+            Job Site <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={jobSites}
+          id={"jobSite"}
           placeholder="Enter Job Site"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={MapSite}
         />
-        <div className="w-[32px] absolute top-10 left-2">
-          <MapSite className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
+      </FormField>
 
       {/* Job type */}
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="jobType" className="font-semibold opacity-90">
-          Job Type <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="jobType"
+      <FormField
+        label={
+          <>
+            Job Type <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={jobTypes}
+          id={"jobType"}
           placeholder="Enter Job Type"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={FormatListBulletedIcon}
         />
-        <div className="w-[32px] absolute top-11 left-3">
-          <FormatListBulletedIcon className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
+      </FormField>
+
+    
       {/* Job sector */}
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="jobSector" className="font-semibold opacity-90">
-          Job Sector <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="jobSector"
+      <FormField
+        label={
+          <>
+             Job Sector <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={jobSectors}
+          id={"jobSector"}
           placeholder="Select Job Sector"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={DomainAddIcon}
         />
-        <div className="w-[32px] absolute top-11 left-3">
-          <DomainAddIcon className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="jobSite" className="font-semibold opacity-90">
-          Job Site <span className="text-red-500">*</span>
-        </label>
-        <div className="mt-2">
-          <CustomSelect
-            options={jobSites}
-            placeholder="Enter Job Site"
-            onChange={(e) => handleChangeSelect(e)}
-            isSearchable={false}
-            Icon={MapSite}
-          />
-        </div>
-      </div>
-      {/* Job type */}
-      <div className="flex flex-col mt-2 relative">
-        <label
-          htmlFor="educationQualification"
-          className="font-semibold opacity-90"
-        >
-          Education Qualification <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="educationQualification"
+      </FormField>
+     
+
+      {/* Education Qualification */}
+      <FormField
+        label={
+          <>
+             Education Qualification <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={educationAndQual}
+          id={"educationQualification"}
           placeholder="Select Education"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={PersonGrad}
         />
-        <div className="w-[28px] absolute top-11 left-3">
-          <PersonGrad className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
-      {/* Job sector */}
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="experianceLevel" className="font-semibold opacity-90">
-          Experiance Level <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="experianceLevel"
+      </FormField>
+      
+      
+      {/* Experiance Level */}
+      <FormField
+        label={
+          <>
+            Experiance Level <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={experienceLevel}
           placeholder="Select Experiance Level"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          id={"experianceLevel"}
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={ExperianceBulb}
         />
-        <div className="w-[20px] absolute top-11 left-3">
-          <ExperianceBulb className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
+      </FormField>
+
+      
+ 
       {/* Gender */}
-      <div className="flex flex-col mt-2 relative">
-        <label htmlFor="gender" className="font-semibold opacity-90">
-          Gender <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          id="gender"
+      <FormField
+        label={
+          <>
+            Gender <span className="text-red-500">*</span>
+          </>
+        }
+      >
+        <CustomSelect
+          options={experienceLevel}
           placeholder="Select your gender preference"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
+          id={"gender"}
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={WcIcon}
         />
-        <div className="w-12 h-12 absolute top-11 left-2">
-          <WcIcon className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
+      </FormField>
+    
       {/* Job Deadline */}
       <div className="flex flex-col mt-2 relative">
         <div className="flex flex-row justify-between items-center">

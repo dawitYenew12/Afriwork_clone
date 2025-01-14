@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CustomSelect from "../components/Custom_select";
+import CustomSelect from "../components/CustomSelect";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
 const PaymentIcon = () => {

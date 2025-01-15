@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const YearRangePicker = ({ onYearClick }) => {
+const YearRangePicker = ({ onYearClick, onYearSelect }) => {
   const today = new Date();
   const currentYear = today.getFullYear();
-  
+
   const [startYear, setStartYear] = useState(currentYear - 7); // Start range from current year minus 7
-  
+
   const yearsPerPage = 12; // Display 12 years per range (4x3 grid)
   const minYear = currentYear - 7; // Define the minimum year limit
 
@@ -24,8 +24,6 @@ const YearRangePicker = ({ onYearClick }) => {
     setStartYear(startYear + yearsPerPage); // Go forward by 12 years
   };
 
-
-
   return (
     <div className="w-[220px] p-2 bg-gray-50 border border-gray-200 rounded-md">
       {/* Header showing the range of years */}
@@ -33,11 +31,16 @@ const YearRangePicker = ({ onYearClick }) => {
         <button
           onClick={handlePrevYears}
           disabled={startYear <= minYear} // Disable if we are at the minimum year range
-          className={`text-lg ${startYear <= minYear ? "text-gray-300 cursor-not-allowed" : ""}`}
+          className={`text-lg ${
+            startYear <= minYear ? "text-gray-300 cursor-not-allowed" : ""
+          }`}
         >
           &#8592;
         </button>
-        <h2 className="text-sm cursor-pointer" onClick={onYearClick}>{`${startYear} - ${startYear + yearsPerPage - 1}`}</h2>
+        <h2
+          className="text-sm cursor-pointer"
+          onClick={onYearClick}
+        >{`${startYear} - ${startYear + yearsPerPage - 1}`}</h2>
         <button onClick={handleNextYears} className="text-lg">
           &#8594;
         </button>
@@ -55,6 +58,7 @@ const YearRangePicker = ({ onYearClick }) => {
                 ? "hover:bg-gray-200 text-black" // Future years are selectable
                 : "text-gray-400" // Past years are not selectable
             } text-sm`}
+            onClick={() => onYearSelect(year)}
           >
             {year}
           </div>

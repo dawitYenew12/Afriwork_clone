@@ -58,6 +58,12 @@ const DatePicker = () => {
     setIsMonthYearPickerVisible(!isMonthYearPickerVisible);
   };
 
+  const handleMonthSelect = (index, year) => {
+    setCurrentMonth(index);
+    setCurrentYear(year);
+    setIsMonthYearPickerVisible(false);
+  };
+
   // Generate days to display in the grid
   const days = [];
 
@@ -132,7 +138,7 @@ const DatePicker = () => {
 
       {isMonthYearPickerVisible && (
         <div className="absolute left-0 w-full flex items-center justify-center">
-          <MonthYearPicker />
+          <MonthYearPicker onMonthSelect={handleMonthSelect}/>
         </div>
       )}
 

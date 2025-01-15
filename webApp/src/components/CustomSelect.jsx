@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from "react";
 
-const DownArrowIcon = ({ isOpen }) => {
+export const DownArrowIcon = ({ isOpen }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -45,7 +45,7 @@ function CustomSelect({
   placeholder,
   onChange,
   align,
-  Icon,
+  Icon
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(isMulti ? [] : null);
@@ -259,6 +259,7 @@ function CustomSelect({
                 className={`flex justify-center mb-[1px] px-4 py-1 text-sm cursor-pointer hover:bg-blue-50 rounded-md ${
                   isSelected(option) ? "bg-blue-50" : ""
                 }`}
+
               >
                 {option.label}
               </div>

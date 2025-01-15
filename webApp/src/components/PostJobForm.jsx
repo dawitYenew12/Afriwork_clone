@@ -22,7 +22,8 @@ import CustomSelect from "./CustomSelect";
 import "../styles/jobStyle.css";
 import { SelectionOptions } from "../assets/options/SelectionOptions";
 import FormField from "./FormField";
-import { DatePickerInput } from "carbon-components-react";
+import DatePicker from "../pages/DatePicker";
+
 
 function PostJobForm() {
   const [styleState, setStyleState] = useState(Array(5).fill(false));
@@ -36,9 +37,17 @@ function PostJobForm() {
   const [educationAndQual, setEducationAndQual] = useState(
     SelectionOptions.EducationAndQual
   );
+  const [jobDeadline, setJobDeadline] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleChangeSelect = (e) => {
     console.log(e);
+  };
+
+  const handleDateInputClick = () => {
+    setShowDatePicker((prevState) => !prevState);
+    // setJobDeadline(new Date());
+    console.log("Date input clicked");
   };
 
   const handleStyleState = (index) => {
@@ -184,50 +193,52 @@ function PostJobForm() {
         />
       </FormField>
 
-
-
       {/* Job Deadline */}
-      <div className="flex flex-col mt-2 relative">
-        <div className="flex flex-row justify-between items-center">
-          <label htmlFor="jobDeadline" className="font-semibold opacity-90">
-            Job Deadline
-          </label>
-          <p className="text-xs font-medium text-gray-400">Default: 15 days</p>
-        </div>
-        <input
-          type="text"
-          id="jobDeadline"
-          placeholder="MM/DD/YYYY"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
-        />
-        <div className="w-12 h-12 absolute top-11 left-2">
-          <InsertInvitationIcon className="text-gray-300" />
-        </div>
-        <div className="absolute top-11 right-3">
-          <KeyboardArrowDownIcon className="text-gray-800" />
-        </div>
-      </div>
-      {/* vacancies */}
-      <div className="flex flex-col mt-2 mb-6 relative">
-        <label htmlFor="vacancies" className="font-semibold opacity-90">
-          Vacancies
-        </label>
-        <input
-          type="text"
-          id="vacancies"
-          placeholder="Number of vacancies"
-          className="border border-gray-300 p-2 py-3 pl-12 mt-2 rounded-md placeholder:text-gray-700"
-        />
-        <div className="absolute top-11 left-3">
-          <GroupsIcon
-            className="text-gray-300"
-            style={{ transform: "scale(1.2)" }}
+      <FormField
+        label={<>Job Deadline</>}
+        helperText={<>Default: 15 days</>}
+        iconLeft={<InsertInvitationIcon className="text-gray-300" />}
+        iconRight={<KeyboardArrowDownIcon className="text-gray-800" />}
+        onDateInputClick={handleDateInputClick}
+        showDatePicker={showDatePicker}
+      >
+        <>
+          <input
+            type="text"
+            id="jobDeadline"
+            placeholder="MM/DD/YYYY"
+            className="border border-gray-300 p-2 py-3 pl-12 rounded-md placeholder:text-gray-700 w-full"
           />
-        </div>
-      </div>
+          {showDatePicker && (
+            <div className="absolute z-100 left-0 top-5 w-full flex items-center justify-center">
+              <DatePicker />
+            </div>
+          )}
+        </>
+      </FormField>
+
+      {/* vacancies */}
+
+      <FormField
+        label={
+          <>
+            Vacancies
+          </>
+        }
+      >
+        <CustomSelect
+          options={experienceLevel}
+          placeholder="Number of vacancies"
+          id={"vacancies"}
+          onChange={(e) => handleChangeSelect(e)}
+          isSearchable={false}
+          Icon={GroupsIcon}
+        />
+      </FormField>
+      
       <div className="flex flex-col mt-16 relative">
         <div className="w-full border-[1px] border-b border-gray-300 mb-6"></div>
-        <div className="text-red-500 absolute bottom-[17px] left-1/2 transform -translate-x-1/2 px-2 z-10 bg-white">
+        <div className="text-red-500 absolute bottom-[17px] left-1/2 transform -translate-x-1/2 px-2 bg-white text-sm">
           Tell us about your job
         </div>
       </div>

@@ -58,7 +58,7 @@ const MonthYearPicker = ({ onMonthSelect }) => {
           &#8594;
         </button>
       </div>
-      {isYearRangeVisible && <div className="absolute left-0 top-0 w-full flex items-center justify-center"> <YearRangePicker onYearClick={handleYearClick} onYearSelect={handleYearSelect}/></div>}
+      {isYearRangeVisible && <div className="absolute z-100 left-0 top-0 w-full flex items-center justify-center"> <YearRangePicker onYearClick={handleYearClick} onYearSelect={handleYearSelect}/></div>}
 
       {/* Month Grid (4x3 layout) */}
       <div className="grid grid-cols-4 gap-1 text-center">

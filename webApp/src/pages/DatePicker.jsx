@@ -133,7 +133,7 @@ const DatePicker = () => {
   }
 
   return (
-    <div className="max-w-[250px] mx-auto p-2 bg-gray-50 border border-gray-200 rounded-md mt-16 relative">
+    <div className="w-[250px] mx-auto p-2 bg-gray-50 border border-gray-200 rounded-md mt-16 relative">
       <div className="flex justify-between items-center mb-2">
         <button onClick={handlePrevMonth} className="text-lg">
           &#8592;
@@ -150,7 +150,7 @@ const DatePicker = () => {
       </div>
 
       {isMonthYearPickerVisible && (
-        <div className="absolute left-0 w-full flex items-center justify-center">
+        <div className="absolute z-10000 left-0 w-full flex items-center justify-center">
           <MonthYearPicker onMonthSelect={handleMonthSelect} />
         </div>
       )}

@@ -1,28 +1,40 @@
 import React, { useState } from "react";
+import MonthYearPicker from "./MonthYearPicker";
 
 const DatePicker = () => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth()); // Start with the current month
   const [currentYear, setCurrentYear] = useState(today.getFullYear()); // Start with the current year
   const [currentDay, setCurrentDay] = useState(today.getDate()); // Start with the current day
+  const [selectedDate, setSelectedDate] = useState(null); // State to store the selected date
+  const [isMonthYearPickerVisible, setIsMonthYearPickerVisible] =
+    useState(false); // State to toggle MonthYearPicker visibility
 
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Number of days in the current month
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // First weekday of the current month
-  const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate(); // Last day of the previous month
-
+  // Calculate number of days in the current month
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  // Calculate the first weekday of the current month (0 = Sunday, 6 = Saturday)
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  // Calculate number of days in the previous month
+  const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
 
-  // Handles month navigation
+  // Handle previous month navigation
   const handlePrevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11); // Go to December of the previous year
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
+    if (
+      currentYear > today.getFullYear() ||
+      (currentMonth > 0 && currentYear === today.getFullYear())
+    ) {
+      if (currentMonth === 0) {
+        setCurrentMonth(11); // Go to December of the previous year
+        setCurrentYear(currentYear - 1);
+      } else {
+        setCurrentMonth(currentMonth - 1);
+      }
     }
   };
 
+  // Handle next month navigation
   const handleNextMonth = () => {
     if (currentMonth === 11) {
       setCurrentMonth(0); // Go to January of the next year
@@ -32,13 +44,31 @@ const DatePicker = () => {
     }
   };
 
-  // Generate days to display in the grid
-  const daysGrid = [];
+  const handleDayClick = (day, month, year) => {
+    const clickedDate = new Date(year, month, day);
+    if (selectedDate && clickedDate.getTime() === selectedDate.getTime()) {
+      setSelectedDate(null); // Deselect if it's already selected
+    } else {
+      console.log(clickedDate);
+      setSelectedDate(clickedDate);
+    }
+  };
 
-  // Fill in the days from the previous month
+  const handleMonthClick = () => {
+    setIsMonthYearPickerVisible(!isMonthYearPickerVisible);
+  };
+
+  // Generate days to display in the grid
+  const days = [];
+
+  // Fill in the days of the previous month to complete the grid
   for (let i = firstDayOfMonth - 1; i >= 0; i--) {
-    daysGrid.push(
-      <div key={`prev-${i}`} className=" py-1 text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg">
+    days.push(
+      <div
+        key={`prev-${i}`}
+        className="flex-1 flex items-center justify-center p-2 text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg"
+        onClick={() => {}}
+      >
         {daysInPrevMonth - i}
       </div>
     );
@@ -46,35 +76,50 @@ const DatePicker = () => {
 
   // Fill in the days of the current month
   for (let i = 1; i <= daysInMonth; i++) {
-    daysGrid.push(
+    days.push(
       <div
         key={`current-${i}`}
-        className={`py-1 cursor-pointer hover:bg-gray-200 rounded-lg ${
+        className={`flex-1 flex items-center justify-center p-2 cursor-pointer hover:bg-gray-200 rounded-lg ${
           i === currentDay ? "bg-blue-300" : ""
+        } ${i < currentDay ? "text-gray-300" : ""} ${
+          selectedDate && i === selectedDate.getDate()
+            ? "hover:bg-red-400 bg-red-400"
+            : ""
         }`}
+        onClick={() => handleDayClick(i, currentMonth, currentYear)}
       >
         {i}
       </div>
     );
   }
 
-  // Fill in the days of the next month to complete the grid (42 slots for a 6-week calendar grid)
-  const remainingSlots = 42 - daysGrid.length;
+  // Fill in the days of the next month to complete the grid (35 slots for a 5-week calendar grid)
+  const remainingSlots = 35 - days.length;
   for (let i = 1; i <= remainingSlots; i++) {
-    daysGrid.push(
-      <div key={`next-${i}`} className="py-1 text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg">
+    days.push(
+      <div
+        key={`next-${i}`}
+        className="flex-1 flex items-center justify-center p-2 cursor-pointer text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg "
+        onClick={() => handleDayClick(i, currentMonth + 1, currentYear)}
+      >
         {i}
       </div>
     );
   }
 
+  // Group days into weeks (7 days per row)
+  const weeks = [];
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7));
+  }
+
   return (
-    <div className="max-w-xs mx-auto p-4 bg-gray-50 shadow-md rounded-md">
+    <div className="max-w-[250px] mx-auto p-2 bg-gray-50 border border-gray-200 rounded-md mt-16 relative">
       <div className="flex justify-between items-center mb-2">
         <button onClick={handlePrevMonth} className="text-lg">
           &#8592;
         </button>
-        <h2 className="text-lg font-bold">
+        <h2 className="text-sm cursor-pointer" onClick={handleMonthClick}>
           {new Date(currentYear, currentMonth).toLocaleString("default", {
             month: "long",
           })}{" "}
@@ -85,18 +130,28 @@ const DatePicker = () => {
         </button>
       </div>
 
+      {isMonthYearPickerVisible && (
+        <div className="absolute left-0 w-full flex items-center justify-center">
+          <MonthYearPicker />
+        </div>
+      )}
+
       {/* Weekdays */}
-      <div className="grid grid-cols-7 gap-2 text-center font-semibold">
+      <div className="flex text-center text-gray-500 text-xs">
         {daysOfWeek.map((day, index) => (
-          <div key={index} className="text-gray-700">
+          <div key={index} className="flex-1 py-1">
             {day}
           </div>
         ))}
       </div>
 
-      {/* Days grid */}
-      <div className="grid grid-cols-7 gap-2 text-center mt-2">
-        {daysGrid}
+      {/* Days */}
+      <div className="flex flex-col mt-2 text-xs">
+        {weeks.map((week, index) => (
+          <div key={index} className="flex mb-2">
+            {week}
+          </div>
+        ))}
       </div>
     </div>
   );

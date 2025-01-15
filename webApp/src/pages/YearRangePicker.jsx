@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const YearRangePicker = () => {
+const YearRangePicker = ({ onYearClick }) => {
   const today = new Date();
   const currentYear = today.getFullYear();
   
@@ -24,10 +24,12 @@ const YearRangePicker = () => {
     setStartYear(startYear + yearsPerPage); // Go forward by 12 years
   };
 
+
+
   return (
-    <div className="max-w-xs mx-auto p-4 bg-gray-50 shadow-md rounded-md">
+    <div className="w-[220px] p-2 bg-gray-50 border border-gray-200 rounded-md">
       {/* Header showing the range of years */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center">
         <button
           onClick={handlePrevYears}
           disabled={startYear <= minYear} // Disable if we are at the minimum year range
@@ -35,7 +37,7 @@ const YearRangePicker = () => {
         >
           &#8592;
         </button>
-        <h2 className="text-lg font-bold">{`${startYear} - ${startYear + yearsPerPage - 1}`}</h2>
+        <h2 className="text-sm cursor-pointer" onClick={onYearClick}>{`${startYear} - ${startYear + yearsPerPage - 1}`}</h2>
         <button onClick={handleNextYears} className="text-lg">
           &#8594;
         </button>
@@ -46,13 +48,13 @@ const YearRangePicker = () => {
         {getYearRange().map((year) => (
           <div
             key={year}
-            className={`py-2 cursor-pointer rounded-lg ${
+            className={`py-1 cursor-pointer rounded-lg ${
               year === currentYear
                 ? "bg-blue-300" // Highlight current year
                 : year > currentYear
                 ? "hover:bg-gray-200 text-black" // Future years are selectable
                 : "text-gray-400" // Past years are not selectable
-            }`}
+            } text-sm`}
           >
             {year}
           </div>

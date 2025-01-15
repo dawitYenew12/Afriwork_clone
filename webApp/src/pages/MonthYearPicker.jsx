@@ -1,14 +1,25 @@
 import React, { useState } from "react";
+import YearRangePicker from "./YearRangePicker";
 
 const MonthYearPicker = () => {
   const today = new Date();
   const [currentYear, setCurrentYear] = useState(today.getFullYear()); // Start with the current year
   const currentMonth = today.getMonth(); // Get the current month (0 = January, 11 = December)
+  const [isYearRangeVisible, setIsYearRangeVisible] = useState(false); // State to toggle YearRange visibility
 
   const months = [
-    "Jan", "Feb", "Mar", "Apr",
-    "May", "Jun", "Jul", "Aug",
-    "Sep", "Oct", "Nov", "Dec"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const handlePrevYear = () => {
@@ -21,28 +32,35 @@ const MonthYearPicker = () => {
     setCurrentYear(currentYear + 1);
   };
 
+  const handleYearClick = () => {
+    setIsYearRangeVisible(!isYearRangeVisible);
+  }
+
   return (
-    <div className="max-w-xs mx-auto p-4 bg-gray-50 shadow-md rounded-md">
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-[220px] p-2 bg-gray-50 border border-gray-200 rounded-md">
+      <div className="flex justify-between items-center mb-2">
         <button
           onClick={handlePrevYear}
           disabled={currentYear === today.getFullYear()}
-          className={`text-lg ${currentYear === today.getFullYear() ? "text-gray-300" : "text-black"}`}
+          className={`text-lg ${
+            currentYear === today.getFullYear() ? "text-gray-300" : "text-black"
+          }`}
         >
           &#8592;
         </button>
-        <h2 className="text-lg font-bold">{currentYear}</h2>
+        <h2 className="text-sm cursor-pointer" onClick={handleYearClick}>{currentYear}</h2>
         <button onClick={handleNextYear} className="text-lg">
           &#8594;
         </button>
       </div>
+      {isYearRangeVisible && <div className="absolute left-0 top-0 w-full flex items-center justify-center"> <YearRangePicker onYearClick={handleYearClick}/></div>}
 
       {/* Month Grid (4x3 layout) */}
-      <div className="grid grid-cols-4 gap-2 text-center">
+      <div className="grid grid-cols-4 gap-1 text-center">
         {months.map((month, index) => (
           <div
             key={month}
-            className={`py-2 cursor-pointer hover:bg-gray-200 rounded-lg ${
+            className={`py-1 cursor-pointer hover:bg-gray-200 text-sm rounded-md ${
               currentYear === today.getFullYear() && index === currentMonth
                 ? "bg-blue-300"
                 : ""

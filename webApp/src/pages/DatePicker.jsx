@@ -73,7 +73,6 @@ const DatePicker = () => {
       <div
         key={`prev-${i}`}
         className="flex-1 flex items-center justify-center p-2 text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg"
-        onClick={() => {}}
       >
         {daysInPrevMonth - i}
       </div>
@@ -82,15 +81,27 @@ const DatePicker = () => {
 
   // Fill in the days of the current month
   for (let i = 1; i <= daysInMonth; i++) {
+    const isCurrentDay =
+      i === currentDay &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
+    const isSelected =
+      selectedDate &&
+      i === selectedDate.getDate() &&
+      currentMonth === selectedDate.getMonth() &&
+      currentYear === selectedDate.getFullYear();
+    const isPastDay =
+      currentYear === today.getFullYear() &&
+      currentMonth === today.getMonth() &&
+      i < currentDay;
+
     days.push(
       <div
         key={`current-${i}`}
         className={`flex-1 flex items-center justify-center p-2 cursor-pointer hover:bg-gray-200 rounded-lg ${
-          i === currentDay ? "bg-blue-300" : ""
-        } ${i < currentDay ? "text-gray-300" : ""} ${
-          selectedDate && i === selectedDate.getDate()
-            ? "hover:bg-red-400 bg-red-400"
-            : ""
+          isCurrentDay ? "bg-blue-300" : ""
+        } ${isPastDay ? "text-gray-300" : ""} ${
+          isSelected ? "hover:bg-red-400 bg-red-400" : ""
         }`}
         onClick={() => handleDayClick(i, currentMonth, currentYear)}
       >
@@ -99,14 +110,16 @@ const DatePicker = () => {
     );
   }
 
-  // Fill in the days of the next month to complete the grid (35 slots for a 5-week calendar grid)
-  const remainingSlots = 35 - days.length;
+  // Calculate if we need a 6th row (42 slots)
+  const totalSlots = days.length > 35 ? 42 : 35;
+  const remainingSlots = totalSlots - days.length;
+
+  // Fill in the days of the next month to complete the grid
   for (let i = 1; i <= remainingSlots; i++) {
     days.push(
       <div
         key={`next-${i}`}
-        className="flex-1 flex items-center justify-center p-2 cursor-pointer text-gray-300 cursor-pointer hover:bg-gray-200 rounded-lg "
-        onClick={() => handleDayClick(i, currentMonth + 1, currentYear)}
+        className="flex-1 flex items-center justify-center p-2 cursor-pointer text-gray-300 hover:bg-gray-200 rounded-lg"
       >
         {i}
       </div>
@@ -138,7 +151,7 @@ const DatePicker = () => {
 
       {isMonthYearPickerVisible && (
         <div className="absolute left-0 w-full flex items-center justify-center">
-          <MonthYearPicker onMonthSelect={handleMonthSelect}/>
+          <MonthYearPicker onMonthSelect={handleMonthSelect} />
         </div>
       )}
 

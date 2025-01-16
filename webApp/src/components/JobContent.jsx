@@ -65,7 +65,7 @@ function JobContent() {
         <div className="mt-4 flex flex-col">
           <p className="capitalize font-semibold">Job Description</p>
           <p className="text-gray-600">
-            <p className="text-gray-600">Key Responsibilities: </p>
+            <span className="text-gray-600">Key Responsibilities: </span>
             -Lorem ipsum dolor sit amet consectetur <br />
             -adipisicing elit. Similique
             <br />

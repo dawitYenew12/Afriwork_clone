@@ -6,9 +6,9 @@ import ExploreMorejobs from "./pages/ExploreMorejobs";
 import DraftsList from "./pages/DraftsList";
 import ChooseYourProfile from "./pages/ChooseYourProfile";
 import YourJobPosts from "./pages/YourJobPosts";
-import DatePicker from "./pages/DatePicker";
-import MonthYearPicker from "./pages/MonthYearPicker";
-import YearRangePicker from "./pages/YearRangePicker";
+// import DatePicker from "./pages/DatePicker";
+// import MonthYearPicker from "./pages/MonthYearPicker";
+// import YearRangePicker from "./pages/YearRangePicker";
 
 function App() {
   return (
@@ -21,9 +21,9 @@ function App() {
         <Route path="/drafts" element={<DraftsList/>}/>
         <Route path="/choose" element={<ChooseYourProfile/>}/>
         <Route path="/posts" element={<YourJobPosts/>}/>
-        <Route path="/pick" element={<DatePicker />} />
+        {/* <Route path="/pick" element={<DatePicker />} />
         <Route path="/month" element={<MonthYearPicker />} />
-        <Route path="/yearRange" element={<YearRangePicker />} />
+        <Route path="/yearRange" element={<YearRangePicker />} /> */}
       </Routes>
     </Router>
   );

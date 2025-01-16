@@ -23,7 +23,7 @@ import "../styles/jobStyle.css";
 import { SelectionOptions } from "../assets/options/SelectionOptions";
 import FormField from "./FormField";
 import DatePicker from "../pages/DatePicker";
-
+import DateInputFrame from "./DateInputFrame";
 
 function PostJobForm() {
   const [styleState, setStyleState] = useState(Array(5).fill(false));
@@ -37,17 +37,9 @@ function PostJobForm() {
   const [educationAndQual, setEducationAndQual] = useState(
     SelectionOptions.EducationAndQual
   );
-  const [jobDeadline, setJobDeadline] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleChangeSelect = (e) => {
     console.log(e);
-  };
-
-  const handleDateInputClick = () => {
-    setShowDatePicker((prevState) => !prevState);
-    // setJobDeadline(new Date());
-    console.log("Date input clicked");
   };
 
   const handleStyleState = (index) => {
@@ -194,38 +186,16 @@ function PostJobForm() {
       </FormField>
 
       {/* Job Deadline */}
-      <FormField
+      <DateInputFrame
         label={<>Job Deadline</>}
         helperText={<>Default: 15 days</>}
-        iconLeft={<InsertInvitationIcon className="text-gray-300" />}
-        iconRight={<KeyboardArrowDownIcon className="text-gray-800" />}
-        onDateInputClick={handleDateInputClick}
-        showDatePicker={showDatePicker}
       >
-        <>
-          <input
-            type="text"
-            id="jobDeadline"
-            placeholder="MM/DD/YYYY"
-            className="border border-gray-300 p-2 py-3 pl-12 rounded-md placeholder:text-gray-700 w-full"
-          />
-          {showDatePicker && (
-            <div className="absolute z-100 left-0 top-5 w-full flex items-center justify-center">
-              <DatePicker />
-            </div>
-          )}
-        </>
-      </FormField>
+        <DatePicker />
+      </DateInputFrame>
 
       {/* vacancies */}
 
-      <FormField
-        label={
-          <>
-            Vacancies
-          </>
-        }
-      >
+      <FormField label={<>Vacancies</>}>
         <CustomSelect
           options={experienceLevel}
           placeholder="Number of vacancies"
@@ -235,7 +205,7 @@ function PostJobForm() {
           Icon={GroupsIcon}
         />
       </FormField>
-      
+
       <div className="flex flex-col mt-16 relative">
         <div className="w-full border-[1px] border-b border-gray-300 mb-6"></div>
         <div className="text-red-500 absolute bottom-[17px] left-1/2 transform -translate-x-1/2 px-2 bg-white text-sm">

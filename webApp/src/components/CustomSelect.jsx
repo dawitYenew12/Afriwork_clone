@@ -53,7 +53,6 @@ function CustomSelect({
   const [focused, setFocused] = useState(false);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [menuStyle, setMenuStyle] = useState({});
-  const [makeUnscrollable, setMakeUnscrollable] = useState(false);
   const searchRef = useRef();
   const inputRef = useRef();
   const menuRef = useRef();
@@ -111,7 +110,6 @@ function CustomSelect({
 
   const handleInputClick = () => {
     setFocused(false);
-    setMakeUnscrollable(true);
     setShowMenu((prev) => !prev);
   };
 
@@ -206,7 +204,7 @@ function CustomSelect({
   };
 
   return (
-    <div className={`relative`}>
+    <div className="relative">
       <div
         id={id}
         tabIndex="0"

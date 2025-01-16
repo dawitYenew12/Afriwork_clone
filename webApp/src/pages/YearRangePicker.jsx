@@ -25,7 +25,7 @@ const YearRangePicker = ({ onYearClick, onYearSelect }) => {
   };
 
   return (
-    <div className="w-[220px] p-2 bg-gray-50 border border-gray-200 rounded-md">
+    <div className="w-64 p-2 bg-white border border-gray-200 rounded-md">
       {/* Header showing the range of years */}
       <div className="flex justify-between items-center">
         <button
